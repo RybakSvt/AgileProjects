@@ -17,9 +17,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from projects.views.tag_views import TagListCreateAPIView, TagDetailApiView
+from projects.views.project_views import ProjectDetailAPIView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('tags/', TagListCreateAPIView.as_view()),
-    path('tags/<int:pk>/', TagDetailApiView.as_view())
+    path('tags/<int:pk>/', TagDetailApiView.as_view()),
+    path ('projects/<int:pk>/', ProjectDetailAPIView.as_view())
 ]
+
