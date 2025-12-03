@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
-
+from datetime import timedelta
 from pathlib import Path
 from environ import Env
 
@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    'rest_framework.authtoken',
+    'rest_framework_simplejwt',
 
     'users.apps.UsersConfig',
     'projects.apps.ProjectsConfig',
@@ -110,6 +112,24 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK = {
+ 'DEFAULT_AUTHENTICATION_CLASSES': [
+   'rest_framework_simplejwt.authentication.JWTAuthentication',
+ #'rest_framework.authentication.TokenAuthentication',
+ ],
+ # 'DEFAULT_PERMISSION_CLASSES': [
+ # 'rest_framework.permissions.IsAuthenticated',
+ # ],
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=1),
+    'REFRESH_TOKEN_LIFE_TIME': timedelta(days=1),
+    'ALGORITHM': 'HS256',
+    'SIGNING_KEY': SECRET_KEY,
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
